@@ -1,1 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anvesha 2026 — Bollywood Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
+:root {
+  --gold: #D4A843;
+  --gold2: #F0C96A;
+  --gold-dim: #A07830;
+  --bg: #0D0B08;
+  --bg2: #141109;
+  --bg3: #1C1710;
+  --bg4: #241E14;
+  --surface: #1A1610;
+  --surface2: #211C12;
+  --border: rgba(212,168,67,0.18);
+  --border2: rgba(212,168,67,0.35);
+  --text: #F0E8D8;
+  --text2: #A89878;
+  --text3: #6B5E48;
+  --radius: 12px;
+  --radius-lg: 18px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── CINEMATIC BACKGROUND ── */
+.bg-layer {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212,168,67,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 90% 80%, rgba(180,100,30,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 50% at 10% 60%, rgba(212,168,67,0.05) 0%, transparent 60%);
+}
+
+/* film grain overlay */
+.grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* horizontal film strip lines */
+.bg-lines {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 119px,
+    rgba(212,168,67,0.03) 119px,
+    rgba(212,168,67,0.03) 120px
+  );
+}
+
+.page {
+  position: relative; z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+/* ── HEADER ── */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeUp 0.9s ease both;
+}
+
+.fest-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(212,168,67,0.1);
+  border: 1px solid rgba(212,168,67,0.3);
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold2);
+  margin-bottom: 1.4rem;
+}
+.fest-chip-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); animation: pulse 2s infinite;
+}
+
+.header-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold-dim);
+  margin-bottom: 0.6rem;
+}
+
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700; line-height: 1;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
+}
+.header h1 .gold { color: var(--gold); font-style: italic; }
+
+.bollywood-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(212,168,67,0.05));
+  border: 1px solid rgba(212,168,67,0.35);
+  border-radius: 100px;
+  padding: 7px 20px;
+  font-size: 13px; font-weight: 500; color: var(--gold2);
+  letter-spacing: 0.04em;
+  margin: 1rem 0 1.2rem;
+}
+
+.header-sub {
+  font-size: 15px; font-weight: 300; color: var(--text2);
+  max-width: 400px; margin: 0 auto; line-height: 1.7;
+}
+
+/* ── AWARD BANNER ── */
+.award-banner {
+  background: linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(212,168,67,0.04) 100%);
+  border: 1px solid rgba(212,168,67,0.28);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 2.5rem;
+  position: relative; overflow: hidden;
+  animation: fadeUp 0.9s 0.1s ease both;
+}
+.award-banner::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.6), transparent);
+}
+.award-emoji { font-size: 32px; flex-shrink: 0; }
+.award-body p { font-size: 14px; font-weight: 500; color: var(--gold2); margin-bottom: 3px; }
+.award-body span { font-size: 12.5px; color: var(--text2); line-height: 1.5; }
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  position: relative; overflow: hidden;
+  animation: fadeUp 0.7s ease both;
+  transition: border-color 0.3s;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.3), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.card:hover { border-color: rgba(212,168,67,0.28); }
+.card:hover::before { opacity: 1; }
+
+.card:nth-child(2) { animation-delay: 0.05s; }
+.card:nth-child(3) { animation-delay: 0.1s; }
+.card:nth-child(4) { animation-delay: 0.15s; }
+.card:nth-child(5) { animation-delay: 0.2s; }
+.card:nth-child(6) { animation-delay: 0.25s; }
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(212,168,67,0.3), transparent);
+}
+
+/* ── FORM FIELDS ── */
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field.full { grid-column: 1/-1; }
+
+label {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--text2); text-transform: uppercase;
+}
+
+input[type=text], input[type=email], input[type=tel], input[type=number], textarea {
+  width: 100%;
+  background: var(--bg4);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+input::placeholder, textarea::placeholder { color: var(--text3); }
+input:focus, textarea:focus {
+  border-color: rgba(212,168,67,0.55);
+  background: var(--bg3);
+  box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
+}
+textarea { resize: vertical; min-height: 90px; }
+
+/* ── TOGGLE PILLS ── */
+.toggle-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.tog {
+  padding: 9px 22px;
+  border: 1px solid rgba(212,168,67,0.2);
+  border-radius: 100px;
+  background: var(--bg4);
+  color: var(--text2);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tog:hover { border-color: rgba(212,168,67,0.5); color: var(--gold2); }
+.tog.active {
+  background: rgba(212,168,67,0.15);
+  border-color: var(--gold);
+  color: var(--gold2);
+  box-shadow: 0 0 12px rgba(212,168,67,0.12);
+}
+
+/* ── PERFORMANCE CARDS ── */
+.perf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.perf-card {
+  background: var(--bg4);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 14px;
+  transition: all 0.22s;
+}
+.perf-card:hover {
+  border-color: rgba(212,168,67,0.4);
+  background: var(--bg3);
+  transform: translateY(-1px);
+}
+.perf-card.active {
+  border-color: var(--gold);
+  background: rgba(212,168,67,0.1);
+  box-shadow: 0 0 20px rgba(212,168,67,0.1);
+}
+.perf-icon-wrap {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: rgba(212,168,67,0.12);
+  border: 1px solid rgba(212,168,67,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  transition: all 0.22s;
+}
+.perf-card.active .perf-icon-wrap {
+  background: rgba(212,168,67,0.22);
+  border-color: rgba(212,168,67,0.5);
+}
+.perf-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.perf-sub { font-size: 11.5px; color: var(--text3); }
+
+/* ── NOTICE BOX ── */
+.notice {
+  background: rgba(212,168,67,0.07);
+  border: 1px solid rgba(212,168,67,0.25);
+  border-left: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.notice-ico { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.notice p { font-size: 13px; color: var(--text2); line-height: 1.65; }
+.notice strong { color: var(--gold2); font-weight: 500; }
+
+/* ── RAMP TOGGLE ── */
+.ramp-row {
+  background: var(--bg4);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  cursor: pointer;
+  transition: all 0.22s;
+}
+.ramp-row:hover { border-color: rgba(212,168,67,0.4); background: var(--bg3); }
+.ramp-row.on { border-color: var(--gold); background: rgba(212,168,67,0.1); }
+.ramp-label p { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.ramp-label span { font-size: 12px; color: var(--text3); }
+.sw {
+  width: 46px; height: 26px; border-radius: 13px;
+  background: var(--bg3); border: 1px solid rgba(212,168,67,0.2);
+  position: relative; flex-shrink: 0; transition: all 0.25s;
+}
+.sw::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--text3);
+  transition: all 0.25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.ramp-row.on .sw { background: rgba(212,168,67,0.3); border-color: var(--gold); }
+.ramp-row.on .sw::after { left: 23px; background: var(--gold); box-shadow: 0 0 8px rgba(212,168,67,0.5); }
+
+/* ── GROUP SIZE ── */
+#group-size-wrap { display: none; margin-top: 14px; }
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0.25rem 0;
+  color: var(--text3); font-size: 12px; letter-spacing: 0.1em;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.15), transparent);
+}
+
+/* ── SUBMIT ── */
+.submit-wrap { margin-top: 1.5rem; animation: fadeUp 0.7s 0.3s ease both; }
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #D4A843 0%, #C49030 50%, #D4A843 100%);
+  background-size: 200% 100%;
+  color: #1A1200;
+  border: none; border-radius: var(--radius);
+  padding: 16px 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.submit-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.submit-btn:hover { background-position: 100% 0; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(212,168,67,0.35); }
+.submit-btn:hover::before { opacity: 1; }
+.submit-btn:active { transform: scale(0.99) translateY(0); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.form-err {
+  background: rgba(220,50,50,0.1); border: 1px solid rgba(220,50,50,0.3);
+  border-radius: 8px; padding: 10px 16px;
+  font-size: 13px; color: #F09090;
+  display: none; margin-top: 12px;
+}
+
+/* ── SUCCESS ── */
+#success-wrap {
+  display: none; text-align: center;
+  padding: 5rem 1rem;
+  animation: fadeUp 0.8s ease both;
+}
+.success-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: rgba(212,168,67,0.12);
+  border: 2px solid rgba(212,168,67,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; margin: 0 auto 1.5rem;
+  box-shadow: 0 0 40px rgba(212,168,67,0.2);
+}
+#success-wrap h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 700; color: var(--gold2);
+  margin-bottom: 0.75rem;
+}
+#success-wrap p { font-size: 15px; color: var(--text2); line-height: 1.7; }
+#success-wrap strong { color: var(--gold2); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; } 50% { opacity: 0.4; }
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:520px) {
+  .row { grid-template-columns: 1fr; }
+  .perf-grid { grid-template-columns: 1fr; }
+  .page { padding: 2rem 1rem 4rem; }
+  .header h1 { font-size: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grain"></div>
+<div class="bg-lines"></div>
+
+<div class="page">
+<div id="form-content">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="fest-chip">
+      <span class="fest-chip-dot"></span>
+      Cultural Fest &nbsp;·&nbsp; Registrations Open
+    </div>
+    <div class="header-eyebrow">IITM / 2026 Edition</div>
+    <h1>Join <span class="gold">Anvesha</span></h1>
+    <div class="bollywood-tag">🎬 Bollywood Day Participation</div>
+    <p class="header-sub">Celebrate the magic of cinema through art, rhythm, and expression. Register your act and let the spotlight find you.</p>
+  </div>
+
+  <!-- AWARD BANNER -->
+  <div class="award-banner">
+    <div class="award-emoji">🏆</div>
+    <div class="award-body">
+      <p>Best performances will be felicitated!</p>
+      <span>Outstanding acts across all categories will be recognised and awarded at the closing ceremony.</span>
+    </div>
+  </div>
+
+  <!-- BASIC DETAILS -->
+  <div class="card">
+    <div class="sec-label">Basic Details</div>
+    <div class="row">
+      <div class="field">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" placeholder="Your full name" />
+      </div>
+      <div class="field">
+        <label for="rollno">Roll Number / ID *</label>
+        <input type="text" id="rollno" placeholder="e.g. 2024CS101" />
+      </div>
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" />
+      </div>
+      <div class="field full">
+        <label for="dept">Department / Class *</label>
+        <input type="text" id="dept" placeholder="e.g. B.Tech CSE, 2nd Year" />
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFORMANCE TYPE -->
+  <div class="card">
+    <div class="sec-label">Performance Type</div>
+    <div class="toggle-group" id="solo-grp">
+      <button class="tog" onclick="selectType(this,'Solo')">Solo</button>
+      <button class="tog" onclick="selectType(this,'Duo')">Duo</button>
+      <button class="tog" onclick="selectType(this,'Group')">Group</button>
+    </div>
+    <div id="group-size-wrap">
+      <div class="field" style="max-width:180px;">
+        <label for="grp-size">Number of Members</label>
+        <input type="number" id="grp-size" min="3" max="20" placeholder="e.g. 5" />
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY -->
+  <div class="card">
+    <div class="sec-label">Category</div>
+    <div class="perf-grid">
+      <div class="perf-card" onclick="selectPerf(this,'Dance')">
+        <div class="perf-icon-wrap">💃</div>
+        <div><div class="perf-title">Dance</div><div class="perf-sub">Choreography & movement</div></div>
+      </div>
+      <div class="perf-card" onclick="selectPerf(this,'Music')">
+        <div class="perf-icon-wrap">🎵</div>
+        <div><div class="perf-title">Music</div><div class="perf-sub">Singing or instrumental</div></div>
+      </div>
+      <div class="perf-card" onclick="selectPerf(this,'Drama')">
+        <div class="perf-icon-wrap">🎭</div>
+        <div><div class="perf-title">Drama</div><div class="perf-sub">Skit or theatrical act</div></div>
+      </div>
+      <div class="perf-card" onclick="selectPerf(this,'Poetry')">
+        <div class="perf-icon-wrap">📜</div>
+        <div><div class="perf-title">Poetry</div><div class="perf-sub">Spoken word or recitation</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILM DETAILS -->
+  <div class="card">
+    <div class="sec-label">Film Inspiration</div>
+    <div class="notice" style="margin-bottom:1.25rem;">
+      <div class="notice-ico">🎬</div>
+      <p><strong>Bollywood theme is mandatory.</strong> All performances must be inspired by or based on a Bollywood film. Regional cinema (Tamil, Bengali, Marathi, Punjabi etc.) is also welcome — as long as the piece is rooted in a movie from that language.</p>
+    </div>
+    <div class="field" style="margin-bottom:14px;">
+      <label for="movie">Movie / Film Inspiration *</label>
+      <input type="text" id="movie" placeholder="e.g. Dilwale Dulhania Le Jayenge, KGF, Dil Se..." />
+    </div>
+    <div class="field">
+      <label for="description">Brief Description of Your Act</label>
+      <textarea id="description" placeholder="Tell us what you'll be performing — a song, scene, sequence, or poem from the film..."></textarea>
+    </div>
+  </div>
+
+  <!-- RAMP WALK -->
+  <div class="card">
+    <div class="sec-label">Ramp Walk</div>
+    <div class="ramp-row" id="ramp-toggle" onclick="toggleRamp()">
+      <div class="ramp-label">
+        <p>Participate in the Ramp Walk?</p>
+        <span>Open to all — flaunt a filmy look inspired by any movie character.</span>
+      </div>
+      <div class="sw" id="ramp-sw"></div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap">
+    <button class="submit-btn" id="submit-btn" onclick="submitForm()">Register for Anvesha 2026 ✦</button>
+    <div class="form-err" id="form-err"></div>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div id="success-wrap">
+  <div class="success-ring">🎉</div>
+  <h2>You're in, star!</h2>
+  <p>Your registration for <strong>Anvesha 2026</strong> has been received.<br>We'll be in touch with further details. Get ready to shine!</p>
+</div>
+
+</div><!-- /page -->
+
+<script>
+let selType = '', selPerf = '', rampOn = false;
+
+function selectType(btn, val) {
+  document.querySelectorAll('#solo-grp .tog').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selType = val;
+  document.getElementById('group-size-wrap').style.display = val === 'Group' ? 'block' : 'none';
+}
+
+function selectPerf(card, val) {
+  document.querySelectorAll('.perf-card').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  selPerf = val;
+}
+
+function toggleRamp() {
+  rampOn = !rampOn;
+  document.getElementById('ramp-toggle').classList.toggle('on', rampOn);
+}
+
+function submitForm() {
+  const get = id => document.getElementById(id).value.trim();
+  const name=get('name'), rollno=get('rollno'), email=get('email'),
+        phone=get('phone'), dept=get('dept'), movie=get('movie');
+  const errDiv = document.getElementById('form-err');
+
+  if (!name||!rollno||!email||!phone||!dept||!movie||!selType||!selPerf) {
+    errDiv.textContent = 'Please fill in all required fields and make your selections.';
+    errDiv.style.display = 'block';
+    return;
+  }
+  errDiv.style.display = 'none';
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const payload = {
+    name, rollno, email, phone, dept,
+    performanceType: selType,
+    groupSize: selType === 'Group' ? get('grp-size') : 'N/A',
+    category: selPerf,
+    movie,
+    description: get('description'),
+    rampWalk: rampOn ? 'Yes' : 'No',
+    timestamp: new Date().toLocaleString('en-IN')
+  };
+
+  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+  fetch(SCRIPT_URL, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('success-wrap').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = 'Register for Anvesha 2026 ✦';
+    errDiv.textContent = 'Something went wrong. Please try again.';
+    errDiv.style.display = 'block';
+  });
+}
+</script>
+</body>
+</html>
